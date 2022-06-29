@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/millersg47/social-network-API/issues"
   },
-  "homepage": "https://github.com/millersg47/social-network-API#readme"
+  "homepage": "https://github.com/millersg47/social-network-API#readme",
+  "dependencies": {
+    "date-and-time": "^2.4.0"
+  }
 }

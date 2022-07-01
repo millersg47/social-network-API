@@ -23,19 +23,15 @@ const thoughtSchema = new Schema(
   },
   {
     toJSON: {
+      virtuals: true,
       getters: true,
     },
   }
 );
 
-userSchema.virtual("reactionCount").get(function () {
+thoughtSchema.virtual("reactionCount").get(function () {
   return this.reactions.length;
 });
-
-// should the getter on line 16 be set up down here?
-// thoughtSchema.get(function () {
-//   return;
-// });
 
 const Thought = model("thought", thoughtSchema);
 

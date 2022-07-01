@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, Types } = require("mongoose");
 
 // Schema to create a course model
 const reactionSchema = new Schema({
@@ -19,6 +19,10 @@ const reactionSchema = new Schema({
     type: Date,
     default: Date.now,
     get: date.format(Date, "YYYY/MM/DD HH:mm:ss"),
+  },
+
+  toJSON: {
+    getters: true,
   },
 });
 

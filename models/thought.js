@@ -1,5 +1,35 @@
-const { Schema, model } = require("mongoose");
-const reactionSchema = require("./reaction");
+const { Schema, model, Types } = require("mongoose");
+const date = require("date-and-time");
+
+// reactionSchema to be a subdoc in thoughtSchema
+const reactionSchema = new Schema(
+  {
+    reactionId: {
+      type: Schema.Types.ObjectId,
+      default: () => new Types.ObjectId(),
+    },
+    reactionBody: {
+      type: String,
+      required: true,
+      maxLength: 280,
+    },
+    username: {
+      type: String,
+      required: true,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      //dateObj.getTimezoneOffset() causing an error when starting server
+      get: (time) => date.format(time, "YYYY/MM/DD HH:mm:ss"),
+    },
+  },
+  {
+    toJSON: {
+      getters: true,
+    },
+  }
+);
 
 // Schema to create Student model
 const thoughtSchema = new Schema(
@@ -13,7 +43,7 @@ const thoughtSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now,
-      get: date.format(Date, "YYYY/MM/DD HH:mm:ss"),
+      get: (time) => date.format(time, "YYYY/MM/DD HH:mm:ss"),
     },
     username: {
       type: String,
@@ -33,6 +63,6 @@ thoughtSchema.virtual("reactionCount").get(function () {
   return this.reactions.length;
 });
 
-const Thought = model("thought", thoughtSchema);
+const Thought = model("Thought", thoughtSchema);
 
 module.exports = Thought;

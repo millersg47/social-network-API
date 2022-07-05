@@ -16,6 +16,8 @@
 
 This is a back end application for a social network using MongoDB as the database program. It includes users and thoughts. Users can have friends and they can react to other user's thoughts.
 
+To see a walkthrough video of the application, follow this [link](https://youtu.be/u5EVZ0XBlO8).
+
 ![Screenshot of the Insomnia application running the getThoughts route from the Social Network API application. ](./assets/social-network-API.png)
 
 ## Installation

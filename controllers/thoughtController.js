@@ -52,6 +52,7 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
 
+  //create a new reaction on a thought
   createReaction(req, res) {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
@@ -65,7 +66,21 @@ module.exports = {
       });
   },
 
+  //delete a reaction from a thought
   deleteReaction(req, res) {
-    res.json({ ok: true });
+    Thought.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      { $pull: { reactions: { reactionId: req.params.reactionId } } },
+      { runValidators: true, new: true }
+    )
+      .then((reaction) =>
+        !reaction
+          ? res.status(404).json({ message: "No reaction found" })
+          : res.json({ message: "reaction deleted" })
+      )
+      .catch((err) => {
+        console.log(err);
+        return res.status(500).json(err);
+      });
   },
 };
